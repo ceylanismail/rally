@@ -10,11 +10,6 @@ import volley.core.network.CoreVolley;
 
 public class CoreBaseApplication extends Application {
 
-    private static CoreBaseApplication ourInstance;
-    public static CoreBaseApplication getInstance() {
-        return ourInstance;
-    }
-
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
 
