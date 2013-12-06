@@ -1,2 +1,3 @@
 include 'core-app'
-include ':libraries:volley'
+include ':volley'
+project (':volley').projectDir = new File('libraries/volley')
