@@ -4,7 +4,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public abstract class CoreBaseRequest<T> {
@@ -38,6 +37,11 @@ public abstract class CoreBaseRequest<T> {
      * @return body of the action
      */
     protected abstract String body();
+
+    /**
+     * @return headers, unless any authorization is needed
+     */
+    protected abstract Map<String, String> getHeaders();
 
     /**
      * callback method for network responses
@@ -78,13 +82,6 @@ public abstract class CoreBaseRequest<T> {
     }
 
     /**
-     * @return default application/json
-     */
-    protected String contentType() {
-        return "application/json";
-    }
-
-    /**
      * @param methodCode integer value of Http Methods
      * @return String value of Http Methods
      */
@@ -97,25 +94,6 @@ public abstract class CoreBaseRequest<T> {
      */
     private String requestUrl() {
         return getBaseUrl() + path();
-    }
-
-    /**
-     * @return headers, unless any authorization is needed
-     */
-    protected Map<String, String> getHeaders() {
-        Map<String, String> headers = new HashMap<String, String>();
-        setEssentialHeaders(headers);
-        headers.put("Content-Type", contentType());
-        return headers;
-    }
-
-    /**
-     *
-     * @param headers initial headers
-     * @return modified headers, i.e authorization, language etc..
-     */
-    private Map<String, String> setEssentialHeaders(Map<String, String> headers) {
-        return headers;
     }
 
     /**
