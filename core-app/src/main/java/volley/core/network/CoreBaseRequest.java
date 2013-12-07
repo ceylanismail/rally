@@ -9,14 +9,10 @@ import java.util.Map;
 public abstract class CoreBaseRequest<T> {
 
     /**
-     * Essentials to send server the String version of them for authentication
-     */
-    private static final String[] METHOD_NAMES = {"GET", "POST", "PUT", "DELETE"};
-
-    /**
      * @return base url of the server
      */
     protected abstract String getBaseUrl();
+
     /**
      * GET, POST, PUT, DELETE
      * @return integer value of Http Method
@@ -79,14 +75,6 @@ public abstract class CoreBaseRequest<T> {
                 onError(error);
             }
         };
-    }
-
-    /**
-     * @param methodCode integer value of Http Methods
-     * @return String value of Http Methods
-     */
-    private String getMethodName(int methodCode) {
-        return METHOD_NAMES[methodCode];
     }
 
     /**
