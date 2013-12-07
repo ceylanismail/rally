@@ -11,7 +11,7 @@ public abstract class CoreBaseRequest<T> {
     /**
      * @return base url of the server
      */
-    protected abstract String getBaseUrl();
+    protected abstract String baseUrl();
 
     /**
      * GET, POST, PUT, DELETE
@@ -81,7 +81,7 @@ public abstract class CoreBaseRequest<T> {
      * @return whole path of the URL
      */
     private String requestUrl() {
-        return getBaseUrl() + path();
+        return baseUrl() + path();
     }
 
     /**
