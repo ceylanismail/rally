@@ -3,6 +3,7 @@ package volley.core.network;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.google.gson.Gson;
 
 import java.lang.reflect.Field;
 import java.util.Map;
@@ -102,10 +103,20 @@ public abstract class CoreBaseRequest<T> {
     }
 
     /**
+     * Can be rented for advanced usages
+     *
+     * @return {@link com.google.gson.Gson object}
+     */
+    protected Gson gson() {
+        return new Gson();
+    }
+
+    /**
      * @return new built of Request class
      */
     public Request<T> create() {
         return new CoreGsonRequest<T>(
+                gson(),
                 httpMethod(),
                 requestUrl(),
                 responseClass(),

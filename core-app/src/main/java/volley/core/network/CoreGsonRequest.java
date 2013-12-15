@@ -17,7 +17,7 @@ import java.util.Map;
  */
 public class CoreGsonRequest<T> extends Request<T> {
 
-    private final Gson mGson = new Gson();
+    private final Gson mGson;
     private final Class<T> mClazz;
     private final Map<String, String> mHeaders;
     private final Response.Listener<T> mListener;
@@ -31,9 +31,10 @@ public class CoreGsonRequest<T> extends Request<T> {
      * @param clazz Relevant class object, for Gson's reflection
      * @param headers Map of request mHeaders
      */
-    public CoreGsonRequest(int method, String url, Class<T> clazz, Map<String, String> headers,
+    public CoreGsonRequest(Gson gson, int method, String url, Class<T> clazz, Map<String, String> headers,
                        Response.Listener<T> listener, Response.ErrorListener errorListener, String body) {
         super(method, url, errorListener);
+        mGson = gson;
         mClazz = clazz;
         mHeaders = headers;
         mListener = listener;
