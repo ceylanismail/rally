@@ -4,9 +4,6 @@ import com.android.volley.Request;
 
 import java.lang.reflect.Field;
 
-/**
- * Created by Ismail Ceylan
- */
 public class CoreVolleyUtil {
 
     /**
