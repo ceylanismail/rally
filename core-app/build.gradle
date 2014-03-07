@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.7.+'
+        classpath 'com.android.tools.build:gradle:0.9.+'
     }
 }
 apply plugin: 'android-library'
@@ -14,17 +14,12 @@ repositories {
 
 android {
     compileSdkVersion 19
-    buildToolsVersion "19.0.1"
+    buildToolsVersion "19.0.3"
 
     defaultConfig {
         minSdkVersion 8
         targetSdkVersion 19
     }
-//    release {
-//        runProguard true
-//        proguardFile 'proguard-rules.txt'
-//        proguardFile getDefaultProguardFile('proguard-android-optimize.txt')
-//    }
 }
 
 dependencies {

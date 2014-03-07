@@ -35,7 +35,7 @@ public class Volley {
     /**
      * Creates a default instance of the worker pool and calls {@link RequestQueue#start()} on it.
      *
-     * @param context A {@link android.content.Context} to use for creating the cache dir.
+     * @param context A {@link Context} to use for creating the cache dir.
      * @param stack An {@link HttpStack} to use for the network, or null for default.
      * @return A started {@link RequestQueue} instance.
      */
@@ -71,7 +71,7 @@ public class Volley {
     /**
      * Creates a default instance of the worker pool and calls {@link RequestQueue#start()} on it.
      *
-     * @param context A {@link android.content.Context} to use for creating the cache dir.
+     * @param context A {@link Context} to use for creating the cache dir.
      * @return A started {@link RequestQueue} instance.
      */
     public static RequestQueue newRequestQueue(Context context) {
