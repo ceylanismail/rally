@@ -36,13 +36,4 @@ public class CoreBitmapLruCache extends LruCache<String, Bitmap> implements Imag
     public void putBitmap(String url, Bitmap bitmap) {
         put(url, bitmap);
     }
-
-    // TODO: I don't decide to use this now: Ismail 11/28/13
-//    @Override
-//    protected void entryRemoved(boolean evicted, String key, Bitmap oldValue, Bitmap newValue) {
-//        if (!oldValue.isRecycled()) {
-//            oldValue.recycle();
-//            oldValue = null;
-//        }
-//    }
 }

@@ -5,7 +5,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 
-import java.lang.reflect.Field;
 import java.util.Map;
 
 public abstract class CoreBaseRequest<T> {
@@ -20,22 +19,6 @@ public abstract class CoreBaseRequest<T> {
      * @return integer value of Http Method
      */
     protected abstract int httpMethod();
-
-    /**
-     * @param methodCode integer value of HTTP Methods
-     * @return String value of HTTP Methods defined in {@link com.android.volley.Request.Method}
-     */
-    public static String getMethodName(int methodCode) throws IllegalAccessException {
-        Field[] fields = Request.Method.class.getDeclaredFields();
-
-        for (Field field : fields) {
-            if (methodCode == field.getInt(null)) {
-                return field.getName();
-            }
-        }
-
-        return null;
-    }
 
     /**
      * @return the url path that will be concatenated

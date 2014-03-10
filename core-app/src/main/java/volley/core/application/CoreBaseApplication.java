@@ -16,7 +16,6 @@ public class CoreBaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
         // create network instances
         initNetwork(this);
     }

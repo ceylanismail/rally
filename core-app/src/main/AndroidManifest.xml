@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="volley.core.network"
-    android:versionCode="1"
-    android:versionName="1.0.0" >
-    <uses-sdk android:minSdkVersion="12" />
+<manifest package="volley.core" >
     <application />
 </manifest>
