@@ -53,6 +53,7 @@ public class CoreGsonRequest<T> extends Request<T> {
 
     @Override
     protected Response<T> parseNetworkResponse(NetworkResponse response) {
+        if (mClazz == null) return Response.success(null, null);
         try {
             String json = new String(
                     response.data, HttpHeaderParser.parseCharset(response.headers));
