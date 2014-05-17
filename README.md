@@ -141,3 +141,8 @@ Hence you don't have to worry anything about parsing, `gson` handles it in an el
 
 Returns the `String` value of the HTTP Methods. It might be necessary if you use HTTP verbs as parameters,
 (i.e Authorising your calls, since `volley` has `int` implementation of them.)
+
+TODO
+---
+* Tests
+* gzip
