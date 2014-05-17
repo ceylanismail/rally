@@ -1,12 +1,10 @@
-volley-core-adapter
+rally
 ---
 
-At first, special thanks to [merihakar](https://github.com/merihakar) for his contributions!
-
-*volley-core-adapter* is a simple adapter between Google's volley and your Android network structure.
+*rally* is a simple wrapper between Google's volley and your Android network structure.
 It simply aims to reduce the amount of code written for the base network structure.
 
-Setup
+setup
 ---
 *for gradle users: ([here](http://tools.android.com/tech-docs/new-build-system) is more detail about gradle build system)*
 
@@ -14,10 +12,10 @@ Setup
 * add these lines into your `settings.gradle` file:
 
 ```
-include 'core-app'
-project (':core-app').projectDir = new File('libraries/volley-core-adapter/core-app')
+include 'rally-lib'
+project (':rally-lib').projectDir = new File('libraries/rally/rally-lib')
 include 'volley'
-project (':volley').projectDir = new File('libraries/volley-core-adapter/core-libraries/volley')
+project (':volley').projectDir = new File('libraries/rally/libraries/volley')
 ```
  * to declare the dependencies, add these lines into your `build.gradle` file:
 
@@ -26,7 +24,7 @@ dependencies {
 
 ...
 
-compile project(':core-app')
+compile project(':rally-lib')
 compile project(':volley')
 
 ...
@@ -112,9 +110,8 @@ public class CreateUserRequest extends BaseRequest {
 Usage - How to call?
 ---
 
-* EASY!
 ```
-<YOUR_APPLICATION_CLASS>.getInstance().getRequestQueue().add(new CreateUserRequest(getActivity(), mUser) {
+<APPLICATION_CLASS>.getInstance().getRequestQueue().add(new CreateUserRequest(getActivity(), mUser) {
                 @Override
                 protected void onSuccess(Object response) {
                     super.onSuccess(response);

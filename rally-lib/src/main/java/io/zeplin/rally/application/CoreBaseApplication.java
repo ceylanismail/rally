@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package volley.core.application;
+package io.zeplin.rally.application;
 
 import android.app.Application;
 import android.content.Context;
@@ -21,7 +21,7 @@ import android.content.Context;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 
-import volley.core.network.CoreVolley;
+import io.zeplin.rally.network.CoreVolley;
 
 public class CoreBaseApplication extends Application {
 

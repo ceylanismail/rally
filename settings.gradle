@@ -1,3 +1,3 @@
-include 'core-app'
+include 'rally-lib'
 include 'volley'
-project (':volley').projectDir = new File('core-libraries/volley')
+project (':volley').projectDir = new File('libraries/volley')

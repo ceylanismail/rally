@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package volley.core.network;
+package io.zeplin.rally.network;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
