@@ -1,14 +1,17 @@
 volley-core-adapter
 ---
-*volley-core-adapter* is a simple adapter that implements very basic functionalities for the upper level of your Android Network code.
-It is aimed to reduce the amount of code that has to be written each time for a new project.
+
+At first, special thanks to [merihakar](https://github.com/merihakar) for his contributions!
+
+*volley-core-adapter* is a simple adapter between Google's volley and your Android network structure.
+It simply aims to reduce the amount of code written for the base network structure.
 
 Setup
 ---
-*Explanation is for gradle users:*
+*for gradle users: ([here](http://tools.android.com/tech-docs/new-build-system) is more detail about gradle build system)*
 
-* clone the project under "/libraries" folder of your root project ([here](http://tools.android.com/tech-docs/new-build-system) is more detail about gradle build system)
-* add these lines in your `settings.gradle` file:
+* clone the project under "/libraries" folder of your root project
+* add these lines into your `settings.gradle` file:
 
 ```
 include 'core-app'
@@ -16,7 +19,7 @@ project (':core-app').projectDir = new File('libraries/volley-core-adapter/core-
 include 'volley'
 project (':volley').projectDir = new File('libraries/volley-core-adapter/core-libraries/volley')
 ```
- * to declare dependency, add these ones to your `build.gradle` file:
+ * to declare the dependencies, add these lines into your `build.gradle` file:
 
 ```
 dependencies {
@@ -36,17 +39,21 @@ Usage - What do you need?
 ---
 *I'll explain here how I use this, but you can easily implement your own way too!*
 
-* Extend your Android Application class to `CoreBaseApplication` for declaring and initializing `volley` instances. (That could be done in another place too, but it's just easier in here)
-* Create a `BaseRequest` class that extends `CoreBaseRequest`. Simple example:
+* Extend your Android Application class to `CoreBaseApplication` for declaring and initialising `volley` instances.
 
-(Don't forget! This whole project is all about more modular network structure. So, please write your own "Base" classes)
+(This could be done in another place too, but it's just easier in here)
+
+* Create a `BaseRequest` class that extends `CoreBaseRequest`.
+(Don't forget! This whole library is all about more modular and reusable network structure.
+
+Here is an example of simple *BaseRequest* class:
 
 ```
 public abstract class BaseRequest extends CoreBaseRequest {
 
     @Override
     protected String baseUrl() {
-        return <BASE_URL>;
+        return <YOUR_BASE_URL>;
     }
 
     /**
@@ -66,12 +73,12 @@ public abstract class BaseRequest extends CoreBaseRequest {
 
 ```
 ***
-And here is simple POST request:
+And here is an example of simple *POST* request:
 
 ```
 public class CreateUserRequest extends BaseRequest {
 
-    private final CustomUser mUser;
+    private final <YourUserClass> mUser;
 
     public CreateUserRequest(Context context, CustomUser user) {
         super(context);
@@ -85,12 +92,12 @@ public class CreateUserRequest extends BaseRequest {
 
     @Override
     protected String path() {
-        return <PATH>";
+        return <END_POINT_OF_THE_ACTION>";
     }
 
     @Override
     protected Class responseClass() {
-        return UserInfo.class;
+        return <MODEL_CLASS_OF_YOUR_RESPONSE>;
     }
 
     @Override
@@ -113,7 +120,7 @@ Usage - How to call?
                     super.onSuccess(response);
                     UserInfo userInfo = (UserInfo) response;
 
-                    // continue what you need to do here
+                    // handle your response here
                 }
 
                 @Override
@@ -125,11 +132,17 @@ Usage - How to call?
             }.create());
 ```
 
-`UserInfo` and `User` classes are examples of passing the objects as parameters. Therefor you don't have to worry anything about parsing, `gson` handles it in a beautiful way with `volley`.
+`<MODEL_CLASS_OF_YOUR_RESPONSE>` is a response class to retrieve the network response, and <YourUserClass> is the request class to send the request to the server, in a simple way.
+Hence you don't have to worry anything about parsing, `gson` handles it in an elegant way.
 
-Special thanks to [@merihakar](https://github.com/merihakar) for his contributions!
 
 #####Some other useful methods:
 * `CoreVolleyUtil.getMethodName`
 
-Returns the `String` value of the HTTP Methods. It might be necessary if you use HTTP verbs as parameters, i.e authorizing your calls, since `volley` has `int` implementation of them.
+Returns the `String` value of the HTTP Methods. It might be necessary if you use HTTP verbs as parameters,
+(i.e Authorising your calls, since `volley` has `int` implementation of them.)
+
+TODO
+---
+* Tests
+* gzip
