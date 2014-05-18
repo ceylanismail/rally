@@ -1,11 +1,10 @@
-rally
----
+# rally
 
 *rally* is a simple wrapper around Google's volley and your Android network structure.
 It aims to reduce the amount of code written for the base network structure.
 
-Setup
----
+## Setup
+
 **With [gradle](http://tools.android.com/tech-docs/new-build-system):**
 
 * Clone the project under `/libraries` folder of your root project.
@@ -33,9 +32,11 @@ compile project(':volley')
 
 That's all!
 
-Usage
----
-*Here's how I use rally, but you can easily integrate it in your own way too!*
+## Usage
+
+Here's how I use rally, but you can easily integrate it in your own way too!
+
+### What do you need?
 
 * Extend your Android Application class to `CoreBaseApplication` for declaring and initialising `volley` instances. (This could be done in another place too, but it's just easier in here)
 
@@ -104,8 +105,9 @@ public class CreateUserRequest extends BaseRequest {
 
 ```
 
-Usage - How to call?
----
+***
+
+### How to call?
 
 ```
 <APPLICATION_CLASS>.getInstance().getRequestQueue().add(new CreateUserRequest(getActivity(), mUser) {
@@ -137,7 +139,7 @@ Hence you don't have to worry anything about parsing, `gson` handles it in an el
 Returns the `String` value of the HTTP Methods. It might be necessary if you use HTTP verbs as parameters,
 (i.e Authorising your calls, since `volley` has `int` implementation of them.)
 
-TODO
+To-do
 ---
 * Tests
 * gzip support
@@ -145,9 +147,9 @@ TODO
 License
 ---
 
-*rally* is available under the MIT license. See the LICENSE file for more info.
+*rally* is available under Apache License Version 2.0. See the `LICENSE.md` file for more info.
 
 Get In Touch
 ---
 
-If you have questions, feel free to post an issue here on GitHub or just email us at contact@zeplin.io.
+If you have questions, feel free to post an issue here on GitHub or just email us at [rally@zeplin.io](mailto:rally@zeplin.io).
