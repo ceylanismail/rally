@@ -1,15 +1,13 @@
-rally
----
+# rally
 
-*rally* is a simple wrapper between Google's volley and your Android network structure.
-It simply aims to reduce the amount of code written for the base network structure.
+*rally* is a simple wrapper around Google's volley and your Android network structure. Goal is to reduce the amount of boilerplate code.
 
-setup
----
-*for gradle users: ([here](http://tools.android.com/tech-docs/new-build-system) is more detail about gradle build system)*
+## Setup
 
-* clone the project under "/libraries" folder of your root project
-* add these lines into your `settings.gradle` file:
+**With [gradle](http://tools.android.com/tech-docs/new-build-system):**
+
+* Clone the project under `/libraries` folder of your root project.
+* Add these lines to your `settings.gradle`:
 
 ```
 include 'rally-lib'
@@ -17,11 +15,11 @@ project (':rally-lib').projectDir = new File('libraries/rally/rally-lib')
 include 'volley'
 project (':volley').projectDir = new File('libraries/rally/libraries/volley')
 ```
- * to declare the dependencies, add these lines into your `build.gradle` file:
+
+* To declare the dependencies, add these lines to your `build.gradle`:
 
 ```
 dependencies {
-
 ...
 
 compile project(':rally-lib')
@@ -31,20 +29,20 @@ compile project(':volley')
 }
 ```
 
-That's all! Now it's ready to be used.
+That's all!
 
-Usage - What do you need?
----
-*I'll explain here how I use this, but you can easily implement your own way too!*
+## Usage
 
-* Extend your Android Application class to `CoreBaseApplication` for declaring and initialising `volley` instances.
+Here's how I use rally, but you can easily integrate it in your own way too!
 
-(This could be done in another place too, but it's just easier in here)
+### What do you need?
+
+* Extend your Android Application class to `CoreBaseApplication` for declaring and initialising `volley` instances. (This could be done in another place too, but it's just easier in here)
 
 * Create a `BaseRequest` class that extends `CoreBaseRequest`.
-(Don't forget! This whole library is all about more modular and reusable network structure.
+(Don't forget! This whole library is all about more modular and reusable network structure.)
 
-Here is an example of simple *BaseRequest* class:
+Here is a simple `BaseRequest` class:
 
 ```
 public abstract class BaseRequest extends CoreBaseRequest {
@@ -68,10 +66,10 @@ public abstract class BaseRequest extends CoreBaseRequest {
         // Add your headers here, if you need
     }
 }
-
 ```
-***
-And here is an example of simple *POST* request:
+
+
+And here is a simple *POST* request:
 
 ```
 public class CreateUserRequest extends BaseRequest {
@@ -105,10 +103,10 @@ public class CreateUserRequest extends BaseRequest {
 }
 
 ```
+
 ***
 
-Usage - How to call?
----
+### How to call?
 
 ```
 <APPLICATION_CLASS>.getInstance().getRequestQueue().add(new CreateUserRequest(getActivity(), mUser) {
@@ -129,17 +127,28 @@ Usage - How to call?
             }.create());
 ```
 
-`<MODEL_CLASS_OF_YOUR_RESPONSE>` is a response class to retrieve the network response, and <YourUserClass> is the request class to send the request to the server, in a simple way.
+`<MODEL_CLASS_OF_YOUR_RESPONSE>` is a response class to retrieve the network response, and `<YourUserClass>` is the request class to send the request to the server. Simple.
 Hence you don't have to worry anything about parsing, `gson` handles it in an elegant way.
 
+***
 
-#####Some other useful methods:
+### Other useful methods
 * `CoreVolleyUtil.getMethodName`
 
 Returns the `String` value of the HTTP Methods. It might be necessary if you use HTTP verbs as parameters,
 (i.e Authorising your calls, since `volley` has `int` implementation of them.)
 
-TODO
+To-do
 ---
-* Tests
-* gzip
+* tests
+* gzip support
+
+License
+---
+
+*rally* is available under Apache License Version 2.0. See the [LICENSE.md](LICENSE.md) file for more info.
+
+Get In Touch
+---
+
+If you have questions, feel free to post an issue here on GitHub or just email us at [rally@zeplin.io](mailto:rally@zeplin.io).
