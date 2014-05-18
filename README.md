@@ -1,7 +1,6 @@
 # rally
 
-*rally* is a simple wrapper around Google's volley and your Android network structure.
-It aims to reduce the amount of code written for the base network structure.
+*rally* is a simple wrapper around Google's volley and your Android network structure. Goal is to reduce the amount of boilerplate code.
 
 ## Setup
 
@@ -141,13 +140,13 @@ Returns the `String` value of the HTTP Methods. It might be necessary if you use
 
 To-do
 ---
-* Tests
+* tests
 * gzip support
 
 License
 ---
 
-*rally* is available under Apache License Version 2.0. See the `LICENSE.md` file for more info.
+*rally* is available under Apache License Version 2.0. See the [LICENSE.md](LICENSE.md) file for more info.
 
 Get In Touch
 ---
