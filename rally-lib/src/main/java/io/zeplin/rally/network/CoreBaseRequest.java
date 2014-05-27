@@ -51,6 +51,11 @@ public abstract class CoreBaseRequest<T> {
     protected abstract String body();
 
     /**
+     * @return content type of the body
+     */
+    protected abstract String contentType();
+
+    /**
      * @return headers, unless any authorization is needed
      */
     protected abstract Map<String, String> getHeaders();
@@ -118,6 +123,7 @@ public abstract class CoreBaseRequest<T> {
                 httpMethod(),
                 requestUrl(),
                 responseClass(),
+                contentType(),
                 getHeaders(),
                 successListener(),
                 errorListener(),

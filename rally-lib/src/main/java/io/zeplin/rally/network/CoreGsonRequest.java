@@ -34,6 +34,7 @@ public class CoreGsonRequest<T> extends Request<T> {
 
     private final Gson mGson;
     private final Class<T> mClazz;
+    private final String mContentType;
     private final Map<String, String> mHeaders;
     private final Response.Listener<T> mListener;
     private final String mBody;
@@ -44,16 +45,24 @@ public class CoreGsonRequest<T> extends Request<T> {
      * @param method HTTP method that will be used
      * @param url URL of the request to make
      * @param clazz Relevant class object, for Gson's reflection
+     * @param contentType content type of the body
      * @param headers Map of request mHeaders
      */
-    public CoreGsonRequest(Gson gson, int method, String url, Class<T> clazz, Map<String, String> headers,
-                       Response.Listener<T> listener, Response.ErrorListener errorListener, String body) {
+    public CoreGsonRequest(Gson gson, int method, String url, Class<T> clazz, String contentType,
+                           Map<String, String> headers, Response.Listener<T> listener,
+                           Response.ErrorListener errorListener, String body) {
         super(method, url, errorListener);
         mGson = gson;
         mClazz = clazz;
+        mContentType = contentType;
         mHeaders = headers;
         mListener = listener;
         mBody = body;
+    }
+
+    @Override
+    public String getBodyContentType() {
+        return mContentType;
     }
 
     @Override
