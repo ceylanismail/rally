@@ -1,24 +1,24 @@
 /*
-* Copyright (C) 2014 Zeplin
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*      http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ * Copyright (C) 2014 Zeplin
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package io.zeplin.rally.network;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.google.gson.Gson;
 
 import java.util.Map;
 
@@ -101,20 +101,10 @@ public abstract class CoreBaseRequest<T> {
     }
 
     /**
-     * Can be rented for advanced usages
-     *
-     * @return {@link com.google.gson.Gson object}
-     */
-    protected Gson gson() {
-        return new Gson();
-    }
-
-    /**
      * @return new built of Request class
      */
     public Request<T> create() {
         return new CoreGsonRequest<T>(
-                gson(),
                 httpMethod(),
                 requestUrl(),
                 responseClass(),
