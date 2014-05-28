@@ -56,6 +56,8 @@ public class CoreGsonRequest<T> extends JsonRequest<T> {
         super(method, url, body, listener, errorListener);
         mClazz = clazz;
         mHeaders = headers;
+
+        mGson = new Gson();
     }
 
     @Override
