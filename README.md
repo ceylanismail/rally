@@ -142,6 +142,7 @@ To-do
 ---
 * tests
 * gzip support
+* support for content-types other than application/json
 
 License
 ---
