@@ -18,9 +18,9 @@ package io.zeplin.rally.network;
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
-import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.HttpHeaderParser;
+import com.android.volley.toolbox.JsonRequest;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
@@ -30,14 +30,10 @@ import java.util.Map;
 /**
  * Volley adapter for JSON requests that will be parsed into Java objects by Gson.
  */
-public class CoreGsonRequest<T> extends Request<T> {
+public class CoreGsonRequest<T> extends JsonRequest<T> {
 
-    private final Gson mGson;
     private final Class<T> mClazz;
-    private final String mContentType;
     private final Map<String, String> mHeaders;
-    private final Response.Listener<T> mListener;
-    private final String mBody;
 
     /**
      * Make a request and return a parsed object from JSON.
@@ -45,34 +41,28 @@ public class CoreGsonRequest<T> extends Request<T> {
      * @param method HTTP method that will be used
      * @param url URL of the request to make
      * @param clazz Relevant class object, for Gson's reflection
-     * @param contentType content type of the body
      * @param headers Map of request mHeaders
+     * @param listener Success listener
+     * @param errorListener Error listener
+     * @param body Request body
      */
-    public CoreGsonRequest(Gson gson, int method, String url, Class<T> clazz, String contentType,
-                           Map<String, String> headers, Response.Listener<T> listener,
-                           Response.ErrorListener errorListener, String body) {
-        super(method, url, errorListener);
-        mGson = gson;
+    public CoreGsonRequest(int method, String url, Class<T> clazz, Map<String, String> headers,
+                           Response.Listener<T> listener, Response.ErrorListener errorListener,
+                           String body) {
+        super(method, url, body, listener, errorListener);
         mClazz = clazz;
-        mContentType = contentType;
         mHeaders = headers;
-        mListener = listener;
-        mBody = body;
-    }
-
-    @Override
-    public String getBodyContentType() {
-        return mContentType;
     }
 
     @Override
     public Map<String, String> getHeaders() throws AuthFailureError {
-        return mHeaders != null ? mHeaders : super.getHeaders();
-    }
+        for (String header : mHeaders.keySet()) {
+            if (header.equalsIgnoreCase("content-type")) {
+                throw new AuthFailureError("Duplicate Content-Type header definition.");
+            }
+        }
 
-    @Override
-    protected void deliverResponse(T response) {
-        mListener.onResponse(response);
+        return mHeaders != null ? mHeaders : super.getHeaders();
     }
 
     @Override
@@ -82,16 +72,11 @@ public class CoreGsonRequest<T> extends Request<T> {
             String json = new String(
                     response.data, HttpHeaderParser.parseCharset(response.headers));
             return Response.success(
-                    mGson.fromJson(json, mClazz), HttpHeaderParser.parseCacheHeaders(response));
+                    new Gson().fromJson(json, mClazz), HttpHeaderParser.parseCacheHeaders(response));
         } catch (UnsupportedEncodingException e) {
             return Response.error(new ParseError(e));
         } catch (JsonSyntaxException e) {
             return Response.error(new ParseError(e));
         }
-    }
-
-    @Override
-    public byte[] getBody() {
-        return mBody != null ? mBody.getBytes() : null;
     }
 }
