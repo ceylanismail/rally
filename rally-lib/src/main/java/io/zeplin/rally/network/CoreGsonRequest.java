@@ -22,7 +22,9 @@ import com.android.volley.ParseError;
 import com.android.volley.Response;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonRequest;
+import com.google.gson.FieldNamingStrategy;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 
 import java.io.UnsupportedEncodingException;
@@ -35,6 +37,7 @@ public class CoreGsonRequest<T> extends JsonRequest<T> {
 
     private final Class<T> mClazz;
     private final Map<String, String> mHeaders;
+    private Gson mGson;
 
     /**
      * Make a request and return a parsed object from JSON.
@@ -53,6 +56,8 @@ public class CoreGsonRequest<T> extends JsonRequest<T> {
         super(method, url, body, listener, errorListener);
         mClazz = clazz;
         mHeaders = headers;
+
+        mGson = new Gson();
     }
 
     @Override
@@ -73,11 +78,19 @@ public class CoreGsonRequest<T> extends JsonRequest<T> {
             String json = new String(
                     response.data, HttpHeaderParser.parseCharset(response.headers));
             return Response.success(
-                    new Gson().fromJson(json, mClazz), HttpHeaderParser.parseCacheHeaders(response));
+                    mGson.fromJson(json, mClazz), HttpHeaderParser.parseCacheHeaders(response));
         } catch (UnsupportedEncodingException e) {
             return Response.error(new ParseError(e));
         } catch (JsonSyntaxException e) {
             return Response.error(new ParseError(e));
         }
+    }
+
+    public CoreGsonRequest withFieldNamingStrategy(FieldNamingStrategy fieldNamingStrategy) {
+        mGson = new GsonBuilder()
+                .setFieldNamingStrategy(fieldNamingStrategy)
+                .create();
+
+        return this;
     }
 }
