@@ -52,12 +52,18 @@ public class CoreGsonRequest<T> extends JsonRequest<T> {
      */
     public CoreGsonRequest(int method, String url, Class<T> clazz, Map<String, String> headers,
                            Response.Listener<T> listener, Response.ErrorListener errorListener,
-                           String body) {
+                           String body, FieldNamingStrategy fieldNamingStrategy) {
         super(method, url, body, listener, errorListener);
         mClazz = clazz;
         mHeaders = headers;
 
-        mGson = new Gson();
+        GsonBuilder gsonBuilder = new GsonBuilder();
+
+        if (fieldNamingStrategy != null) {
+            gsonBuilder.setFieldNamingStrategy(fieldNamingStrategy);
+        }
+
+        mGson = gsonBuilder.create();
     }
 
     @Override
@@ -84,13 +90,5 @@ public class CoreGsonRequest<T> extends JsonRequest<T> {
         } catch (JsonSyntaxException e) {
             return Response.error(new ParseError(e));
         }
-    }
-
-    public CoreGsonRequest withFieldNamingStrategy(FieldNamingStrategy fieldNamingStrategy) {
-        mGson = new GsonBuilder()
-                .setFieldNamingStrategy(fieldNamingStrategy)
-                .create();
-
-        return this;
     }
 }
