@@ -19,11 +19,11 @@ package io.zeplin.rally.network;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.google.gson.FieldNamingStrategy;
 
 import java.util.Map;
 
 public abstract class CoreBaseRequest<T> {
-
     /**
      * @return base url of the server
      */
@@ -112,6 +112,27 @@ public abstract class CoreBaseRequest<T> {
                 successListener(),
                 errorListener(),
                 body()
+        );
+    }
+
+    /**
+     * Use {@link io.zeplin.rally.toolbox.MFieldNamingStrategy} to have an easier implementation and
+     * follow the field naming conventions:
+     * https://source.android.com/source/code-style.html#follow-field-naming-conventions
+     *
+     * @param fieldNamingStrategy custom field naming strategy.
+     * @return new built of Request class
+     */
+    public Request<T> create(FieldNamingStrategy fieldNamingStrategy) {
+        return new CoreGsonRequest<T>(
+                httpMethod(),
+                requestUrl(),
+                responseClass(),
+                getHeaders(),
+                successListener(),
+                errorListener(),
+                body(),
+                fieldNamingStrategy
         );
     }
 }
