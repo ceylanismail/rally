@@ -57,13 +57,17 @@ public class CoreGsonRequest<T> extends JsonRequest<T> {
         mClazz = clazz;
         mHeaders = headers;
 
-        GsonBuilder gsonBuilder = new GsonBuilder();
+        mGson = new GsonBuilder().setFieldNamingStrategy(fieldNamingStrategy).create();
+    }
 
-        if (fieldNamingStrategy != null) {
-            gsonBuilder.setFieldNamingStrategy(fieldNamingStrategy);
-        }
+    public CoreGsonRequest(int method, String url, Class<T> clazz, Map<String, String> headers,
+                           Response.Listener<T> listener, Response.ErrorListener errorListener,
+                           String body) {
+        super(method, url, body, listener, errorListener);
+        mClazz = clazz;
+        mHeaders = headers;
 
-        mGson = gsonBuilder.create();
+        mGson = new Gson();
     }
 
     @Override

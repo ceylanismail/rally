@@ -104,14 +104,23 @@ public abstract class CoreBaseRequest<T> {
      * @return new built of Request class
      */
     public Request<T> create() {
-        return create(null);
+        return new CoreGsonRequest<T>(
+                httpMethod(),
+                requestUrl(),
+                responseClass(),
+                getHeaders(),
+                successListener(),
+                errorListener(),
+                body()
+        );
     }
 
     /**
+     * Use {@link io.zeplin.rally.toolbox.MFieldNamingStrategy} to have an easier implementation and
+     * follow the field naming conventions:
+     * https://source.android.com/source/code-style.html#follow-field-naming-conventions
      *
-     * @param fieldNamingStrategy custom field naming strategy,
-     * {@link io.zeplin.rally.toolbox.MFieldNamingStrategy} could be used as default.
-     *
+     * @param fieldNamingStrategy custom field naming strategy.
      * @return new built of Request class
      */
     public Request<T> create(FieldNamingStrategy fieldNamingStrategy) {
