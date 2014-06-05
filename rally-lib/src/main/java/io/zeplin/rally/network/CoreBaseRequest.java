@@ -24,6 +24,8 @@ import com.google.gson.FieldNamingStrategy;
 import java.util.Map;
 
 public abstract class CoreBaseRequest<T> {
+    private CoreGsonRequest<T> mCoreGsonRequest;
+
     /**
      * @return base url of the server
      */
@@ -54,6 +56,13 @@ public abstract class CoreBaseRequest<T> {
      * @return headers, unless any authorization is needed
      */
     protected abstract Map<String, String> getHeaders();
+
+    /**
+     * @return response headers retrieved from {@link io.zeplin.rally.network.CoreGsonRequest}
+     */
+    public Map<String, String> getResponseHeaders() {
+        return mCoreGsonRequest.getResponseHeaders();
+    }
 
     /**
      * callback method for network responses
@@ -104,7 +113,7 @@ public abstract class CoreBaseRequest<T> {
      * @return new built of Request class
      */
     public Request<T> create() {
-        return new CoreGsonRequest<T>(
+        mCoreGsonRequest = new CoreGsonRequest<T>(
                 httpMethod(),
                 requestUrl(),
                 responseClass(),
@@ -113,6 +122,8 @@ public abstract class CoreBaseRequest<T> {
                 errorListener(),
                 body()
         );
+
+        return mCoreGsonRequest;
     }
 
     /**
@@ -124,7 +135,7 @@ public abstract class CoreBaseRequest<T> {
      * @return new built of Request class
      */
     public Request<T> create(FieldNamingStrategy fieldNamingStrategy) {
-        return new CoreGsonRequest<T>(
+        mCoreGsonRequest = new CoreGsonRequest<T>(
                 httpMethod(),
                 requestUrl(),
                 responseClass(),
@@ -134,5 +145,7 @@ public abstract class CoreBaseRequest<T> {
                 body(),
                 fieldNamingStrategy
         );
+
+        return mCoreGsonRequest;
     }
 }

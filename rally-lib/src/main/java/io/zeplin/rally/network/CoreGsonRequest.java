@@ -37,6 +37,7 @@ public class CoreGsonRequest<T> extends JsonRequest<T> {
 
     private final Class<T> mClazz;
     private final Map<String, String> mHeaders;
+    private Map<String, String> mResponseHeaders;
     private Gson mGson;
 
     /**
@@ -81,12 +82,17 @@ public class CoreGsonRequest<T> extends JsonRequest<T> {
         return mHeaders != null ? mHeaders : super.getHeaders();
     }
 
+    public Map<String, String> getResponseHeaders() {
+        return mResponseHeaders;
+    }
+
     @Override
     protected Response<T> parseNetworkResponse(NetworkResponse response) {
         if (mClazz == null) return Response.success(null, null);
         try {
             String json = new String(
                     response.data, HttpHeaderParser.parseCharset(response.headers));
+            mResponseHeaders = response.headers;
             return Response.success(
                     mGson.fromJson(json, mClazz), HttpHeaderParser.parseCacheHeaders(response));
         } catch (UnsupportedEncodingException e) {
