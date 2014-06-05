@@ -55,7 +55,7 @@ public abstract class CoreBaseRequest<T> {
     /**
      * @return headers, unless any authorization is needed
      */
-    protected abstract Map<String, String> getHeaders();
+    protected abstract Map<String, String> getRequestHeaders();
 
     /**
      * @return response headers retrieved from {@link io.zeplin.rally.network.CoreGsonRequest}
@@ -117,7 +117,7 @@ public abstract class CoreBaseRequest<T> {
                 httpMethod(),
                 requestUrl(),
                 responseClass(),
-                getHeaders(),
+                getRequestHeaders(),
                 successListener(),
                 errorListener(),
                 body()
@@ -139,7 +139,7 @@ public abstract class CoreBaseRequest<T> {
                 httpMethod(),
                 requestUrl(),
                 responseClass(),
-                getHeaders(),
+                getRequestHeaders(),
                 successListener(),
                 errorListener(),
                 body(),
