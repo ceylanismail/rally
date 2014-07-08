@@ -35,7 +35,7 @@ public class MFieldNamingStrategy implements FieldNamingStrategy {
     /**
      * Field member prefix, if any exists
      */
-    private final String FIELD_NAME_PREFIX = "m";
+    private static final String FIELD_NAME_PREFIX = "m";
 
     @Override
     public String translateName(Field field) {
