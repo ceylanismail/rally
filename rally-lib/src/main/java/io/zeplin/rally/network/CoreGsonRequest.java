@@ -73,13 +73,17 @@ public class CoreGsonRequest<T> extends JsonRequest<T> {
 
     @Override
     public Map<String, String> getHeaders() throws AuthFailureError {
+        if (mHeaders == null) {
+            return super.getHeaders();
+        }
+
         for (String header : mHeaders.keySet()) {
             if (header.equalsIgnoreCase("content-type")) {
                 throw new AuthFailureError("Duplicate Content-Type header definition.");
             }
         }
 
-        return mHeaders != null ? mHeaders : super.getHeaders();
+        return mHeaders;
     }
 
     public Map<String, String> getResponseHeaders() {
