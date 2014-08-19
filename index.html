@@ -1,0 +1,193 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Rally by zeplin</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">Rally</h1>
+        <p class="header">a simple wrapper around Google&#39;s volley and your Android network structure.</p>
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/zeplin/rally/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/zeplin/rally/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/zeplin/rally">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/zeplin">zeplin</a></p>
+
+
+      </header>
+      <section>
+        <h1>
+<a name="rally" class="anchor" href="#rally"><span class="octicon octicon-link"></span></a>rally</h1>
+
+<p><em>rally</em> is a simple wrapper around Google's volley and your Android network structure. Goal is to reduce the amount of boilerplate code.</p>
+
+<h2>
+<a name="setup" class="anchor" href="#setup"><span class="octicon octicon-link"></span></a>Setup</h2>
+
+<p><strong>With <a href="http://tools.android.com/tech-docs/new-build-system">gradle</a>:</strong></p>
+
+<ul>
+<li>Clone the project under <code>/libraries</code> folder of your root project.</li>
+<li>Add these lines to your <code>settings.gradle</code>:</li>
+</ul><pre><code>include 'rally-lib'
+project (':rally-lib').projectDir = new File('libraries/rally/rally-lib')
+include 'volley'
+project (':volley').projectDir = new File('libraries/rally/libraries/volley')
+</code></pre>
+
+<ul>
+<li>To declare the dependencies, add these lines to your <code>build.gradle</code>:</li>
+</ul><pre><code>dependencies {
+...
+
+compile project(':rally-lib')
+compile project(':volley')
+
+...
+}
+</code></pre>
+
+<p>That's all!</p>
+
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>Here's how I use rally, but you can easily integrate it in your own way too!</p>
+
+<h3>
+<a name="what-do-you-need" class="anchor" href="#what-do-you-need"><span class="octicon octicon-link"></span></a>What do you need?</h3>
+
+<ul>
+<li><p>Extend your Android Application class to <code>CoreBaseApplication</code> for declaring and initialising <code>volley</code> instances. (This could be done in another place too, but it's just easier in here)</p></li>
+<li><p>Create a <code>BaseRequest</code> class that extends <code>CoreBaseRequest</code>.
+(Don't forget! This whole library is all about more modular and reusable network structure.)</p></li>
+</ul><p>Here is a simple <code>BaseRequest</code> class:</p>
+
+<pre><code>public abstract class BaseRequest extends CoreBaseRequest {
+
+    @Override
+    protected String baseUrl() {
+        return &lt;YOUR_BASE_URL&gt;;
+    }
+
+    /**
+     * @return content type of the request
+     */
+    protected String contentType() {
+        return httpMethod() == Request.Method.GET ? "" : "application/json";
+    }
+
+    /**
+     * @return key value map of headers required for the request
+     */
+    protected Map&lt;String, String&gt; getHeaders() {
+        // Add your headers here, if you need
+    }
+}
+</code></pre>
+
+<p>And here is a simple <em>POST</em> request:</p>
+
+<pre><code>public class CreateUserRequest extends BaseRequest {
+
+    private final &lt;YourUserClass&gt; mUser;
+
+    public CreateUserRequest(Context context, CustomUser user) {
+        super(context);
+        mUser = user;
+    }
+
+    @Override
+    protected int httpMethod() {
+        return Request.Method.POST;
+    }
+
+    @Override
+    protected String path() {
+        return &lt;END_POINT_OF_THE_ACTION&gt;";
+    }
+
+    @Override
+    protected Class responseClass() {
+        return &lt;MODEL_CLASS_OF_YOUR_RESPONSE&gt;;
+    }
+
+    @Override
+    protected String body() {
+        return new GsonBuilder().create().toJson(mUser);
+    }
+}
+
+</code></pre>
+
+<hr><h3>
+<a name="how-to-call" class="anchor" href="#how-to-call"><span class="octicon octicon-link"></span></a>How to call?</h3>
+
+<pre><code>&lt;APPLICATION_CLASS&gt;.getInstance().getRequestQueue().add(new CreateUserRequest(getActivity(), mUser) {
+                @Override
+                protected void onSuccess(Object response) {
+                    super.onSuccess(response);
+                    UserInfo userInfo = (UserInfo) response;
+
+                    // handle your response here
+                }
+
+                @Override
+                protected void onError(VolleyError error) {
+                    super.onError(error);
+
+                    // handle your error here
+                }
+            }.create());
+</code></pre>
+
+<p><code>&lt;MODEL_CLASS_OF_YOUR_RESPONSE&gt;</code> is a response class to retrieve the network response, and <code>&lt;YourUserClass&gt;</code> is the request class to send the request to the server. Simple.
+Hence you don't have to worry anything about parsing, <code>gson</code> handles it in an elegant way.</p>
+
+<hr><h3>
+<a name="other-useful-methods" class="anchor" href="#other-useful-methods"><span class="octicon octicon-link"></span></a>Other useful methods</h3>
+
+<ul>
+<li><code>CoreVolleyUtil.getMethodName</code></li>
+</ul><p>Returns the <code>String</code> value of the HTTP Methods. It might be necessary if you use HTTP verbs as parameters,
+(i.e Authorising your calls, since <code>volley</code> has <code>int</code> implementation of them.)</p>
+
+<h2>
+<a name="to-do" class="anchor" href="#to-do"><span class="octicon octicon-link"></span></a>To-do</h2>
+
+<ul>
+<li>tests</li>
+<li>gzip support</li>
+<li>support for content-types other than application/json</li>
+</ul><h2>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p><em>rally</em> is available under Apache License Version 2.0. See the <a href="LICENSE.md">LICENSE.md</a> file for more info.</p>
+
+<h2>
+<a name="get-in-touch" class="anchor" href="#get-in-touch"><span class="octicon octicon-link"></span></a>Get In Touch</h2>
+
+<p>If you have questions, feel free to post an issue here on GitHub or just email us at <a href="mailto:rally@zeplin.io">rally@zeplin.io</a>.</p>
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="http://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
+  </body>
+</html>
