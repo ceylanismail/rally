@@ -1,6 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'maven'
-apply plugin: 'signing'
 
 def versionMajor = 1
 def versionMinor = 0
@@ -24,57 +22,5 @@ dependencies {
     compile project (':volley')
 }
 
-version = "${versionMajor}.${versionMinor}.${versionPatch}"
-group = "io.zeplin"
-
-configurations {
-    archives {
-        extendsFrom configurations.default
-    }
-}
-
-signing {
-    required { has("release") && gradle.taskGraph.hasTask("uploadArchives") }
-    sign configurations.archives
-}
-
-uploadArchives {
-    configuration = configurations.archives
-    repositories.mavenDeployer {
-        beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-
-//        repository(url: sonatypeRepo) {
-//            authentication(userName: sonatypeUsername,
-//                    password: sonatypePassword)
-//        }
-
-        pom.project {
-            name 'rally'
-            packaging 'aar'
-            description 'rally is a simple wrapper around Google\'s volley and your Android network structure.'
-            url 'https://github.com/zeplin/rally'
-
-            scm {
-                url 'scm:git@github.com:zeplin/rally.git'
-                connection 'scm:git@github.com:zeplin/rally.git'
-                developerConnection 'scm:git@github.com:zeplin/rally.git'
-            }
-
-            licenses {
-                license {
-                    name 'Apache License Version 2.0'
-                    url 'http://www.apache.org/licenses/LICENSE-2.0.html'
-                    distribution 'repo'
-                }
-            }
-
-            developers {
-                developer {
-                    id 'zeplin'
-                    name 'zeplin'
-                    email 'rally@zeplin.io'
-                }
-            }
-        }
-    }
-}
+// for maven push
+//apply from: 'maven-push.gradle'
