@@ -1,35 +1,35 @@
-# rally
+# Rally
 
-*rally* is a simple wrapper around Google's volley and your Android network structure. Goal is to reduce the amount of boilerplate code.
+*rally* is a simple wrapper around Google's *volley* and your Android network structure. The goal is to reduce the amount of boilerplate code.
 
 ## Setup
 
-**With [gradle](http://tools.android.com/tech-docs/new-build-system):**
+####For gradle users:
 
-* Clone the project under `/libraries` folder of your root project.
-* Add these lines to your `settings.gradle`:
-
-```
-include 'rally-lib'
-project (':rally-lib').projectDir = new File('libraries/rally/rally-lib')
-include 'volley'
-project (':volley').projectDir = new File('libraries/rally/libraries/volley')
-```
-
-* To declare the dependencies, add these lines to your `build.gradle`:
+Add these lines to your dependencies:
 
 ```
 dependencies {
 ...
 
-compile project(':rally-lib')
-compile project(':volley')
+// Rally
+compile 'io.zeplin.rally:rally:1.0.0'
+// Volley mirror
+compile 'com.mcxiaoke.volley:library:1.0.6@aar'
+// Gson
+compile 'com.google.code.gson:gson:2.3'
 
 ...
 }
 ```
 
-That's all!
+***That's all!***
+
+######Notes for other 3rd party dependencies:
+- *Gson* simply for the Request and Response models.
+- We need *volley* into the main project for the direct usage of its *toolbox*.
+
+I've used [this](https://github.com/mcxiaoke/android-volley) mirror project for *volley*. If you want to clone the source code, it's also available here: https://android.googlesource.com/platform/frameworks/volley
 
 ## Usage
 
@@ -37,7 +37,7 @@ Here's how I use rally, but you can easily integrate it in your own way too!
 
 ### What do you need?
 
-* Extend your Android Application class to `CoreBaseApplication` for declaring and initialising `volley` instances. (This could be done in another place too, but it's just easier in here)
+* Extend your Android Application class to `CoreBaseApplication` for declaring and initialising `RequestQueue` and `ImageLoader` instances. (This could be done in another place too, but it's just easier in here)
 
 * Create a `BaseRequest` class that extends `CoreBaseRequest`.
 (Don't forget! This whole library is all about more modular and reusable network structure.)
@@ -127,22 +127,22 @@ public class CreateUserRequest extends BaseRequest {
             }.create());
 ```
 
-`<MODEL_CLASS_OF_YOUR_RESPONSE>` is a response class to retrieve the network response, and `<YourUserClass>` is the request class to send the request to the server. Simple.
-Hence you don't have to worry anything about parsing, `gson` handles it in an elegant way.
+`<MODEL_CLASS_OF_YOUR_RESPONSE>` is a response class to retrieve the network response, and `<YourUserClass>` is the request class to send the request to the server.
+
+Don't worry anything about parsing, `Gson` does it in an elegant way!
 
 ***
 
 ### Other useful methods
 * `CoreVolleyUtil.getMethodName`
 
-Returns the `String` value of the HTTP Methods. It might be necessary if you use HTTP verbs as parameters,
+Returns the `String` value of the HTTP Methods. It might be necessary, if you use HTTP verbs as parameters,
 (i.e Authorising your calls, since `volley` has `int` implementation of them.)
 
 To-do
 ---
 * tests
 * gzip support
-* support for content-types other than application/json
 
 License
 ---
