@@ -10,16 +10,16 @@ Add these lines to your dependencies:
 
 ```
 dependencies {
-...
+    ...
 
-// Rally
-compile 'io.zeplin.rally:rally:1.0.0'
-// Volley mirror
-compile 'com.mcxiaoke.volley:library:1.0.6@aar'
-// Gson
-compile 'com.google.code.gson:gson:2.3'
+    // Rally
+    compile 'io.zeplin.rally:rally:1.0.0'
+    // Volley mirror
+    compile 'com.mcxiaoke.volley:library:1.0.6@aar'
+    // Gson
+    compile 'com.google.code.gson:gson:2.3'
 
-...
+    ...
 }
 ```
 
@@ -49,7 +49,7 @@ public abstract class BaseRequest extends CoreBaseRequest {
 
     @Override
     protected String baseUrl() {
-        return <YOUR_BASE_URL>;
+        return "https://api.example.com";
     }
 
     /**
@@ -74,9 +74,9 @@ And here is a simple *POST* request:
 ```
 public class CreateUserRequest extends BaseRequest {
 
-    private final <YourUserClass> mUser;
+    private final User mUser;
 
-    public CreateUserRequest(Context context, CustomUser user) {
+    public CreateUserRequest(Context context, User user) {
         super(context);
         mUser = user;
     }
@@ -88,12 +88,12 @@ public class CreateUserRequest extends BaseRequest {
 
     @Override
     protected String path() {
-        return <END_POINT_OF_THE_ACTION>";
+        return "../user";
     }
 
     @Override
     protected Class responseClass() {
-        return <MODEL_CLASS_OF_YOUR_RESPONSE>;
+        return UserInfo.class;
     }
 
     @Override
@@ -127,7 +127,7 @@ public class CreateUserRequest extends BaseRequest {
             }.create());
 ```
 
-`<MODEL_CLASS_OF_YOUR_RESPONSE>` is a response class to retrieve the network response, and `<YourUserClass>` is the request class to send the request to the server.
+`UserInfo` is a response class to retrieve the network response, and `User` is the request class to send the request to the server.
 
 Don't worry anything about parsing, `Gson` does it in an elegant way!
 
@@ -136,7 +136,7 @@ Don't worry anything about parsing, `Gson` does it in an elegant way!
 ### Other useful methods
 * `CoreVolleyUtil.getMethodName`
 
-Returns the `String` value of the HTTP Methods. It might be necessary, if you use HTTP verbs as parameters,
+Returns the `String` value of the HTTP Methods. It might be necessary, if you use HTTP verbs as parameters.
 (i.e Authorising your calls, since `volley` has `int` implementation of them.)
 
 To-do
