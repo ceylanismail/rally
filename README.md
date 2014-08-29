@@ -136,8 +136,7 @@ Don't worry anything about parsing, `Gson` does it in an elegant way!
 ### Other useful methods
 * `CoreVolleyUtil.getMethodName`
 
-Returns the `String` value of the HTTP Methods. It might be necessary, if you use HTTP verbs as parameters.
-(i.e Authorising your calls, since `volley` has `int` implementation of them.)
+Returns the `String` representation of the HTTP Methods defined in *volley* as *integer*. It is handy, when you use HTTP verbs as parameters.
 
 To-do
 ---
