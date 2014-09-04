@@ -6,41 +6,26 @@
 
 ####For gradle users:
 
-Add these lines to your dependencies:
+Add this line to your dependencies:
 
 ```
 dependencies {
     ...
-
     // Rally
     compile 'io.zeplin.rally:rally:1.0.0'
-    // Volley mirror
-    compile 'com.mcxiaoke.volley:library:1.0.6@aar'
-    // Gson
-    compile 'com.google.code.gson:gson:2.3'
-
     ...
 }
 ```
 
-***That's all!***
-
-######Notes for other 3rd party dependencies:
-- *Gson* simply for the Request and Response models.
-- We need *volley* into the main project for the direct usage of its *toolbox*.
-
-I've used [this](https://github.com/mcxiaoke/android-volley) mirror project for *volley*. If you want to clone the source code, it's also available here: https://android.googlesource.com/platform/frameworks/volley
-
 ## Usage
 
-Here's how I use rally, but you can easily integrate it in your own way too!
+Here's how we use *rally*, but you can easily integrate it in your own way too!
 
 ### What do you need?
 
-* Extend your Android Application class to `CoreBaseApplication` for declaring and initialising `RequestQueue` and `ImageLoader` instances. (This could be done in another place too, but it's just easier in here)
+* Extend your Android Application class to `CoreBaseApplication` for declaring and initializing `RequestQueue` and `ImageLoader` instances.
 
 * Create a `BaseRequest` class that extends `CoreBaseRequest`.
-(Don't forget! This whole library is all about more modular and reusable network structure.)
 
 Here is a simple `BaseRequest` class:
 
