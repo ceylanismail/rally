@@ -1,46 +1,31 @@
-# rally
+# Rally
 
-*rally* is a simple wrapper around Google's volley and your Android network structure. Goal is to reduce the amount of boilerplate code.
+*rally* is a simple wrapper around Google's *volley* and your Android network structure. The goal is to reduce the amount of boilerplate code.
 
 ## Setup
 
-**With [gradle](http://tools.android.com/tech-docs/new-build-system):**
+####For gradle users:
 
-* Clone the project under `/libraries` folder of your root project.
-* Add these lines to your `settings.gradle`:
-
-```
-include 'rally-lib'
-project (':rally-lib').projectDir = new File('libraries/rally/rally-lib')
-include 'volley'
-project (':volley').projectDir = new File('libraries/rally/libraries/volley')
-```
-
-* To declare the dependencies, add these lines to your `build.gradle`:
+Add this line to your dependencies:
 
 ```
 dependencies {
-...
-
-compile project(':rally-lib')
-compile project(':volley')
-
-...
+    ...
+    // Rally
+    compile 'io.zeplin.rally:rally:1.0.0'
+    ...
 }
 ```
 
-That's all!
-
 ## Usage
 
-Here's how I use rally, but you can easily integrate it in your own way too!
+Here's how we use *rally*, but you can easily integrate it in your own way too!
 
 ### What do you need?
 
-* Extend your Android Application class to `CoreBaseApplication` for declaring and initialising `volley` instances. (This could be done in another place too, but it's just easier in here)
+* Extend your Android Application class to `CoreBaseApplication` for declaring and initializing `RequestQueue` and `ImageLoader` instances.
 
 * Create a `BaseRequest` class that extends `CoreBaseRequest`.
-(Don't forget! This whole library is all about more modular and reusable network structure.)
 
 Here is a simple `BaseRequest` class:
 
@@ -49,7 +34,7 @@ public abstract class BaseRequest extends CoreBaseRequest {
 
     @Override
     protected String baseUrl() {
-        return <YOUR_BASE_URL>;
+        return "https://api.example.com";
     }
 
     /**
@@ -74,9 +59,9 @@ And here is a simple *POST* request:
 ```
 public class CreateUserRequest extends BaseRequest {
 
-    private final <YourUserClass> mUser;
+    private final User mUser;
 
-    public CreateUserRequest(Context context, CustomUser user) {
+    public CreateUserRequest(Context context, User user) {
         super(context);
         mUser = user;
     }
@@ -88,12 +73,12 @@ public class CreateUserRequest extends BaseRequest {
 
     @Override
     protected String path() {
-        return <END_POINT_OF_THE_ACTION>";
+        return "../user";
     }
 
     @Override
     protected Class responseClass() {
-        return <MODEL_CLASS_OF_YOUR_RESPONSE>;
+        return UserInfo.class;
     }
 
     @Override
@@ -127,22 +112,21 @@ public class CreateUserRequest extends BaseRequest {
             }.create());
 ```
 
-`<MODEL_CLASS_OF_YOUR_RESPONSE>` is a response class to retrieve the network response, and `<YourUserClass>` is the request class to send the request to the server. Simple.
-Hence you don't have to worry anything about parsing, `gson` handles it in an elegant way.
+`UserInfo` is a response class to retrieve the network response, and `User` is the request class to send the request to the server.
+
+Don't worry anything about parsing, `Gson` does it in an elegant way!
 
 ***
 
 ### Other useful methods
 * `CoreVolleyUtil.getMethodName`
 
-Returns the `String` value of the HTTP Methods. It might be necessary if you use HTTP verbs as parameters,
-(i.e Authorising your calls, since `volley` has `int` implementation of them.)
+Returns the `String` representation of the HTTP Methods defined in *volley* as *integer*. It is handy, when you use HTTP verbs as parameters.
 
 To-do
 ---
 * tests
 * gzip support
-* support for content-types other than application/json
 
 License
 ---

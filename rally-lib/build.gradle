@@ -1,8 +1,9 @@
-apply plugin: 'android-library'
+apply plugin: 'com.android.library'
 
-repositories {
-    mavenCentral()
-}
+def versionMajor = 1
+def versionMinor = 0
+def versionPatch = 0
+def versionBuild = 0
 
 android {
     compileSdkVersion 20
@@ -11,12 +12,15 @@ android {
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 20
-        versionCode 1
-        versionName "1.0.0"
+        versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
     }
 }
 
 dependencies {
     compile 'com.google.code.gson:gson:2.2.+'
-    compile project (':volley')
+    compile 'com.mcxiaoke.volley:library:1.0.6@aar'
 }
+
+// for maven push
+//apply from: 'maven-push.gradle'
