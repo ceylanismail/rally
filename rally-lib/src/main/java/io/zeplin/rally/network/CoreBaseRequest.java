@@ -38,6 +38,11 @@ public abstract class CoreBaseRequest<T> {
     protected abstract int httpMethod();
 
     /**
+     * @return url parameters
+     */
+    protected abstract Map<String, String> params();
+
+    /**
      * @return the url path that will be concatenated
      */
     protected abstract String path();
@@ -48,6 +53,7 @@ public abstract class CoreBaseRequest<T> {
     protected abstract Class<T> responseClass();
 
     /**
+     * Rent for POST/PUT
      * @return body of the action
      */
     protected abstract String body();
@@ -106,7 +112,23 @@ public abstract class CoreBaseRequest<T> {
      * @return whole path of the URL
      */
     private String requestUrl() {
-        return baseUrl() + path();
+        String requestUrl = baseUrl() + path();
+        Map<String, String> params = params();
+
+        if (params != null) {
+            StringBuilder urlBuilder = new StringBuilder();
+            urlBuilder.append('?');
+            for (Map.Entry<String, String> entry : params.entrySet()) {
+                urlBuilder
+                        .append(entry.getKey())
+                        .append('=')
+                        .append(entry.getValue())
+                        .append('&');
+            }
+            String finalUrl = urlBuilder.toString();
+            requestUrl += finalUrl.substring(0, finalUrl.length() - 1);
+        }
+        return requestUrl;
     }
 
     /**
