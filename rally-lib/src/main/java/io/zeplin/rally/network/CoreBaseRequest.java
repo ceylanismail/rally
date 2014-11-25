@@ -53,7 +53,6 @@ public abstract class CoreBaseRequest<T> {
     protected abstract Class<T> responseClass();
 
     /**
-     * Rent for POST/PUT
      * @return body of the action
      */
     protected abstract String body();
