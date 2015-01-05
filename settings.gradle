@@ -1,1 +1,2 @@
+include ':rallysamples'
 include 'rally-lib'
