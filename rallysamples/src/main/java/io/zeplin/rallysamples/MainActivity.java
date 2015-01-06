@@ -9,8 +9,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 
 import io.zeplin.rallysamples.models.RLYSampleGetResponseModel;
-import io.zeplin.rallysamples.models.RLYSimplePostDataModel;
-import io.zeplin.rallysamples.models.RLYSimplePostResponseModel;
+import io.zeplin.rallysamples.models.RLYSamplePostDataModel;
+import io.zeplin.rallysamples.models.RLYSamplePostResponseModel;
 import io.zeplin.rallysamples.requests.SampleGetRequest;
 import io.zeplin.rallysamples.requests.SamplePostRequest;
 
@@ -48,7 +48,7 @@ public class MainActivity extends Activity {
                 RLYSampleGetResponseModel myResponse = (RLYSampleGetResponseModel) response;
 
                 Log.i("GETResponse", "My origin data: " + myResponse.getOrigin());
-                // OUTPUT: io.zeplin.rallysamples I/GETResponse﹕ My origin data: 213.61.134.78
+                // OUTPUT: io.zeplin.rallysamples I/GETResponse﹕ My origin data: 192.168.1.0
 
                 Log.i("GETResponse", "My url data: " + myResponse.getUrl());
                 // OUTPUT: io.zeplin.rallysamples I/GETResponse﹕ My url data: http://httpbin.org/get
@@ -59,6 +59,7 @@ public class MainActivity extends Activity {
             @Override
             protected void onError(VolleyError error) {
                 super.onError(error);
+                Log.e("GETResponseError", error.getMessage());
 
                 // Error cases of your call..
             }
@@ -66,8 +67,8 @@ public class MainActivity extends Activity {
     }
 
     private void samplePostCall() {
-        RLYSimplePostDataModel myData =
-                new RLYSimplePostDataModel("ExamplePostStringData", 3);
+        RLYSamplePostDataModel myData =
+                new RLYSamplePostDataModel("ExamplePostStringData", 3);
 
         mRequestQueue.add(new SamplePostRequest(myData) {
             @Override
@@ -75,7 +76,7 @@ public class MainActivity extends Activity {
                 super.onSuccess(response);
 
                 // Get your response data by casting it to your model class
-                RLYSimplePostDataModel myResponse = ((RLYSimplePostResponseModel) response).getJson();
+                RLYSamplePostDataModel myResponse = ((RLYSamplePostResponseModel) response).getJson();
 
                 Log.i("POSTResponse", "My string data: " + myResponse.getMyPostStringData());
                 // OUTPUT: io.zeplin.rallysamples I/POSTResponse﹕ My string data: ExamplePostStringData
@@ -89,7 +90,7 @@ public class MainActivity extends Activity {
             @Override
             protected void onError(VolleyError error) {
                 super.onError(error);
-                Log.e("TAG", error.getStackTrace().toString());
+                Log.e("POSTResponseError", error.getMessage());
 
                 // Error cases of your call..
             }

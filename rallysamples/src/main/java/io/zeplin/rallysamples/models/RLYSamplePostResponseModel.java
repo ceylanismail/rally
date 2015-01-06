@@ -7,13 +7,13 @@ import java.io.Serializable;
  *
  * It's a specific model class for this application, you need to change it with yours.
  */
-public class RLYSimplePostResponseModel implements Serializable {
+public class RLYSamplePostResponseModel implements Serializable {
     /**
      * This ("json") is the first parameter which will be returning from the post call.
      */
-    private RLYSimplePostDataModel mJson;
+    private RLYSamplePostDataModel mJson;
 
-    public RLYSimplePostDataModel getJson() {
+    public RLYSamplePostDataModel getJson() {
         return mJson;
     }
 }

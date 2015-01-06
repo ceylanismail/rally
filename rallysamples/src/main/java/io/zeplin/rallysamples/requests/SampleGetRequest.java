@@ -6,7 +6,7 @@ import java.util.Map;
 
 import io.zeplin.rallysamples.models.RLYSampleGetResponseModel;
 
-public class SampleGetRequest extends BaseRequest {
+public class SampleGetRequest extends SampleBaseRequest {
     /**
      * Override the path to append it to the BASE_URL
      * @return the path of this call
@@ -23,13 +23,13 @@ public class SampleGetRequest extends BaseRequest {
      */
     @Override
     protected Map<String, String> params() {
-        HashMap<String, String> headers = new HashMap<String, String>();
+        HashMap<String, String> params = new HashMap<String, String>();
 
-        headers.put("param1", "1");
-        headers.put("param2", "2");
+        params.put("param1", "1");
+        params.put("param2", "2");
 
         // now our full URL will be: "http://httpbin.org/get?param1=1&param2=2"
-        return headers;
+        return params;
     }
 
     /**

@@ -33,7 +33,7 @@ import java.util.Map;
 /**
  * Volley adapter for JSON requests that will be parsed into Java objects by Gson.
  */
-public class CoreGsonRequest<T> extends JsonRequest<T> {
+public class RLYGsonRequest<T> extends JsonRequest<T> {
 
     private final Class<T> mClazz;
     private final Map<String, String> mHeaders;
@@ -51,9 +51,9 @@ public class CoreGsonRequest<T> extends JsonRequest<T> {
      * @param errorListener Error listener
      * @param body Request body
      */
-    public CoreGsonRequest(int method, String url, Class<T> clazz, Map<String, String> headers,
-                           Response.Listener<T> listener, Response.ErrorListener errorListener,
-                           String body, FieldNamingStrategy fieldNamingStrategy) {
+    public RLYGsonRequest(int method, String url, Class<T> clazz, Map<String, String> headers,
+                          Response.Listener<T> listener, Response.ErrorListener errorListener,
+                          String body, FieldNamingStrategy fieldNamingStrategy) {
         super(method, url, body, listener, errorListener);
         mClazz = clazz;
         mHeaders = headers;
@@ -61,9 +61,9 @@ public class CoreGsonRequest<T> extends JsonRequest<T> {
         mGson = new GsonBuilder().setFieldNamingStrategy(fieldNamingStrategy).create();
     }
 
-    public CoreGsonRequest(int method, String url, Class<T> clazz, Map<String, String> headers,
-                           Response.Listener<T> listener, Response.ErrorListener errorListener,
-                           String body) {
+    public RLYGsonRequest(int method, String url, Class<T> clazz, Map<String, String> headers,
+                          Response.Listener<T> listener, Response.ErrorListener errorListener,
+                          String body) {
         super(method, url, body, listener, errorListener);
         mClazz = clazz;
         mHeaders = headers;

@@ -19,7 +19,7 @@ import com.android.volley.Request;
 
 import java.lang.reflect.Field;
 
-public class CoreVolleyUtil {
+public class RLYUtil {
 
     /**
      * @param methodCode integer value of HTTP Methods

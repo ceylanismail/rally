@@ -21,9 +21,9 @@ import android.content.Context;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 
-import io.zeplin.rally.network.CoreVolley;
+import io.zeplin.rally.network.RLYVolley;
 
-public class CoreBaseApplication extends Application {
+public class RLYBaseApplication extends Application {
 
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
@@ -40,9 +40,9 @@ public class CoreBaseApplication extends Application {
      * @param context application context for Volley instances
      */
     private void initNetwork(Context context) {
-        CoreVolley coreVolleyInstance = CoreVolley.getInstance();
-        mRequestQueue = coreVolleyInstance.getRequestQueue(context);
-        mImageLoader  = coreVolleyInstance.getImageLoader(context);
+        RLYVolley instance = RLYVolley.getInstance();
+        mRequestQueue = instance.getRequestQueue(context);
+        mImageLoader  = instance.getImageLoader(context);
     }
 
     public RequestQueue getRequestQueue() {

@@ -4,16 +4,16 @@ import com.android.volley.Request;
 import com.google.gson.GsonBuilder;
 
 import io.zeplin.rally.toolbox.MFieldNamingStrategy;
-import io.zeplin.rallysamples.models.RLYSimplePostDataModel;
-import io.zeplin.rallysamples.models.RLYSimplePostResponseModel;
+import io.zeplin.rallysamples.models.RLYSamplePostDataModel;
+import io.zeplin.rallysamples.models.RLYSamplePostResponseModel;
 
-public class SamplePostRequest extends BaseRequest {
+public class SamplePostRequest extends SampleBaseRequest {
     /**
      * Request body of the call.
      */
-    private final RLYSimplePostDataModel mPostDataModel;
+    private final RLYSamplePostDataModel mPostDataModel;
 
-    public SamplePostRequest(RLYSimplePostDataModel postDataModel) {
+    public SamplePostRequest(RLYSamplePostDataModel postDataModel) {
         mPostDataModel = postDataModel;
     }
 
@@ -42,7 +42,7 @@ public class SamplePostRequest extends BaseRequest {
      */
     @Override
     protected Class responseClass() {
-        return RLYSimplePostResponseModel.class;
+        return RLYSamplePostResponseModel.class;
     }
 
     /**

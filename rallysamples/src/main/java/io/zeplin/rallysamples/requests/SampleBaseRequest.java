@@ -5,13 +5,13 @@ import com.android.volley.Request;
 import java.util.HashMap;
 import java.util.Map;
 
-import io.zeplin.rally.network.CoreBaseRequest;
+import io.zeplin.rally.network.RLYBaseRequest;
 import io.zeplin.rally.toolbox.MFieldNamingStrategy;
 
 /**
  * Base Request class which customizes the common params and methods of your application.
  */
-public class BaseRequest extends CoreBaseRequest {
+public class SampleBaseRequest extends RLYBaseRequest {
     /**
      * Base URL of the network calls.
      * "http://httpbin.org" will be used for the sample calls.

@@ -23,8 +23,8 @@ import com.google.gson.FieldNamingStrategy;
 
 import java.util.Map;
 
-public abstract class CoreBaseRequest<T> {
-    private CoreGsonRequest<T> mCoreGsonRequest;
+public abstract class RLYBaseRequest<T> {
+    private RLYGsonRequest<T> mRequest;
 
     /**
      * @return base url of the server
@@ -63,10 +63,10 @@ public abstract class CoreBaseRequest<T> {
     protected abstract Map<String, String> getRequestHeaders();
 
     /**
-     * @return response headers retrieved from {@link io.zeplin.rally.network.CoreGsonRequest}
+     * @return response headers retrieved from {@link RLYGsonRequest}
      */
     public Map<String, String> getResponseHeaders() {
-        return mCoreGsonRequest.getResponseHeaders();
+        return mRequest.getResponseHeaders();
     }
 
     /**
@@ -134,7 +134,7 @@ public abstract class CoreBaseRequest<T> {
      * @return new built of Request class
      */
     public Request<T> create() {
-        mCoreGsonRequest = new CoreGsonRequest<T>(
+        mRequest = new RLYGsonRequest<T>(
                 httpMethod(),
                 requestUrl(),
                 responseClass(),
@@ -144,7 +144,7 @@ public abstract class CoreBaseRequest<T> {
                 body()
         );
 
-        return mCoreGsonRequest;
+        return mRequest;
     }
 
     /**
@@ -156,7 +156,7 @@ public abstract class CoreBaseRequest<T> {
      * @return new built of Request class
      */
     public Request<T> create(FieldNamingStrategy fieldNamingStrategy) {
-        mCoreGsonRequest = new CoreGsonRequest<T>(
+        mRequest = new RLYGsonRequest<T>(
                 httpMethod(),
                 requestUrl(),
                 responseClass(),
@@ -167,6 +167,6 @@ public abstract class CoreBaseRequest<T> {
                 fieldNamingStrategy
         );
 
-        return mCoreGsonRequest;
+        return mRequest;
     }
 }

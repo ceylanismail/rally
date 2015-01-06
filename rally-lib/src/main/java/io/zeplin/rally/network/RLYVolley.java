@@ -21,10 +21,10 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 
-public class CoreVolley {
+public class RLYVolley {
 
-    private static CoreVolley ourInstance = new CoreVolley();
-    public static CoreVolley getInstance() {
+    private static RLYVolley ourInstance = new RLYVolley();
+    public static RLYVolley getInstance() {
         return ourInstance;
     }
 
@@ -36,6 +36,6 @@ public class CoreVolley {
     }
 
     public ImageLoader getImageLoader(Context context) {
-        return sImageLoader == null ? sImageLoader = new ImageLoader(getRequestQueue(context), new CoreBitmapLruCache()) : sImageLoader;
+        return sImageLoader == null ? sImageLoader = new ImageLoader(getRequestQueue(context), new RLYBitmapLruCache()) : sImageLoader;
     }
 }
